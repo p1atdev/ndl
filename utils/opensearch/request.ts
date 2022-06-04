@@ -2,7 +2,7 @@ import {
   MediaTypeText,
   mediaTypeText,
   OpenSearchRequestQueries,
-  OpenSearchRequestQueryKey,
+  OpenSearchRSSResponse,
 } from "../../types/mod.ts";
 import { parseXML } from "../../utils/mod.ts";
 
@@ -26,7 +26,7 @@ export const createOpenSearchRequest = (
           case "publisher":
           case "digitized_publisher": {
             if (Array.isArray(value)) {
-              params.append(key, value.join("+"));
+              params.append(key, value.join(" "));
             } else {
               params.append(key, value);
             }
@@ -81,10 +81,10 @@ export const createOpenSearchRequest = (
 
 export const sendOpenSearchRequest = async (
   request: Request,
-): Promise<OpenSearchRequestQueryKey> => {
+): Promise<OpenSearchRSSResponse> => {
   const xml = await fetch(request).then((res) => res.text());
 
-  const json = parseXML<OpenSearchRequestQueryKey>(xml);
+  const json = parseXML<OpenSearchRSSResponse>(xml);
 
   return JSON.parse(JSON.stringify(json));
 };

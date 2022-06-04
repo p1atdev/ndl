@@ -24,7 +24,7 @@ export interface OpenSearchRSSChannel {
   "openSearch:totalResults": number;
   "openSearch:startIndex": number;
   "openSearch:itemsPerPage": number;
-  item: OpenSearchRSSChannelItem[];
+  item: OpenSearchRSSChannelItem | OpenSearchRSSChannelItem[];
 }
 
 export interface OpenSearchRSSChannelItem {

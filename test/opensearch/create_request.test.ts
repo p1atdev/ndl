@@ -1,9 +1,5 @@
-import {
-  createOpenSearchRequest,
-  formatDate,
-  sendOpenSearchRequest,
-} from "../utils/mod.ts";
-import { assertEquals } from "../deps.ts";
+import { createOpenSearchRequest, formatDate } from "../../utils/mod.ts";
+import { assertEquals } from "../../deps.ts";
 
 Deno.test("opensearch request: simple (title)", () => {
   const req = createOpenSearchRequest({
@@ -43,7 +39,7 @@ Deno.test("opensearch request: complex (cnt, dpid, dpgroupid, title)", () => {
 
   assertEquals(
     req.url,
-    "https://iss.ndl.go.jp/api/opensearch?cnt=5&dpid=aozora&dpgroupid=digitalcontents&title=%E5%90%BE%E8%BC%A9%2B%E7%8C%AB",
+    "https://iss.ndl.go.jp/api/opensearch?cnt=5&dpid=aozora&dpgroupid=digitalcontents&title=%E5%90%BE%E8%BC%A9+%E7%8C%AB",
   );
 });
 
@@ -59,7 +55,7 @@ Deno.test("opensearch request: complex (cnt, title, creator, mediatype)", () => 
 
   assertEquals(
     req.url,
-    "https://iss.ndl.go.jp/api/opensearch?cnt=10&title=%E7%BE%85%E7%94%9F%E9%96%80&creator=%E8%8A%A5%E5%B7%9D%2B%E9%BE%8D%E4%B9%8B%E4%BB%8B&mediatype=1",
+    "https://iss.ndl.go.jp/api/opensearch?cnt=10&title=%E7%BE%85%E7%94%9F%E9%96%80&creator=%E8%8A%A5%E5%B7%9D+%E9%BE%8D%E4%B9%8B%E4%BB%8B&mediatype=1",
   );
 });
 
