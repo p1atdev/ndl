@@ -43,9 +43,6 @@ export const createOpenSearchRequest = (
             break;
           }
           case "mediatype": {
-            console.log(value);
-            console.log(value in mediaTypeText);
-
             if (Array.isArray(value)) {
               params.append(
                 key,
