@@ -1,1 +1,2 @@
-export * from "./calc.ts";
+export * from "./xml.ts";
+export * from "./opensearch/mod.ts";
