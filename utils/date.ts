@@ -1,4 +1,4 @@
-import { datetime } from "../deps.ts";
+import { DateTime, datetime } from "../deps.ts";
 
 /**
  * Format date to specified format.
@@ -6,7 +6,7 @@ import { datetime } from "../deps.ts";
  * @param format string
  * @returns string
  */
-export const formatDate = (date: Date, format: string): string => {
+export const formatDate = (date: Date | DateTime, format: string): string => {
   const dt = datetime(date);
 
   return dt.format(format);
