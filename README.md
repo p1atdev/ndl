@@ -2,6 +2,8 @@
 
 ![Deno JS](https://img.shields.io/badge/deno%20js-000000?style=for-the-badge&logo=deno&logoColor=white)
 [![vr scripts](https://badges.velociraptor.run/flat.svg)](https://velociraptor.run)
+![Test](https://github.com/p1atdev/ndl/actions/workflows/test.yml/badge.svg)
+[![codecov](https://codecov.io/gh/p1atdev/ndl/branch/main/graph/badge.svg?token=SJ2W1IUKCR)](https://codecov.io/gh/p1atdev/ndl)
 
 # Features
 
