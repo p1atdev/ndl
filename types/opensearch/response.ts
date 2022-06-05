@@ -41,11 +41,12 @@ export interface OpenSearchRSSChannelItem {
   "dc:date"?: number;
   "dcterms:issued": OpenSearchRSSChannelItemDctermsIssued;
   "dcndl:price"?: string;
+  "dcndl:genre"?: string;
   "dc:extent"?: string;
   "dc:identifier":
     | OpenSearchRSSChannelItemDcIdentifierElement[]
     | OpenSearchRSSChannelItemDctermsIssued;
-  "dc:subject": OpenSearchRSSChannelItemDcSubject;
+  "dc:subject": OpenSearchRSSChannelItemDcSubject[];
   "dc:description": string[];
   "rdfs:seeAlso": OpenSearchRSSChannelItemRdfsSeeAlso;
   "dc:creator"?: string;
