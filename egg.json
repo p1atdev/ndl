@@ -9,7 +9,13 @@
   "unstable": true,
   "unlisted": false,
   "files": [
-    "README.md"
+    "README.md",
+    "./mod.ts",
+    "./deps.ts",
+    "./utils/**/*",
+    "./types/**/*",
+    "./models/**/*",
+    "LICENSE"
   ],
   "ignore": [
     ".env"
