@@ -13,5 +13,14 @@
         "*.md"
       ]
     }
+  },
+  "lint": {
+    "files": {
+      "exclude": [
+        "./npm",
+        "./coverage",
+        "*.md"
+      ]
+    }
   }
 }
