@@ -1,0 +1,21 @@
+{
+  "$schema": "https://x.nest.land/eggs@0.3.10/src/schema.json",
+  "name": "ndl",
+  "entry": "./mod.ts",
+  "description": "National Diet Library, Japan API Client for Deno",
+  "homepage": "https://github.com/p1atdev/ndl",
+  "version": "v0.1.0",
+  "releaseType": null,
+  "unstable": true,
+  "unlisted": false,
+  "files": [
+    "README.md"
+  ],
+  "ignore": [
+    ".env"
+  ],
+  "checkFormat": true,
+  "checkTests": true,
+  "checkInstallation": false,
+  "check": true
+}
