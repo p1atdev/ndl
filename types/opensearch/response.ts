@@ -54,7 +54,7 @@ export interface OpenSearchRSSChannel {
   "openSearch:totalResults": number;
   "openSearch:startIndex": number;
   "openSearch:itemsPerPage": number;
-  item: OpenSearchRSSChannelItem | OpenSearchRSSChannelItem[];
+  item?: OpenSearchRSSChannelItem | OpenSearchRSSChannelItem[];
 }
 
 export interface OpenSearchRSSChannelItem {
@@ -77,7 +77,7 @@ export interface OpenSearchRSSChannelItem {
   "dcterms:created"?: OpenSearchRSSChannelXSIItem;
   "dcndl:price"?: string | number;
   "dcndl:genre"?: string;
-  "dcndl:volume"?: string;
+  "dcndl:volume"?: string | number;
   "dcndl:originalLanguage"?: string;
   "dc:extent"?: string | string[];
   "dc:identifier"?:

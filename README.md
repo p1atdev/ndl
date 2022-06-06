@@ -1,32 +1,110 @@
-# Deno template project
+# NDL API Client for Deno
 
 ![Deno JS](https://img.shields.io/badge/deno%20js-000000?style=for-the-badge&logo=deno&logoColor=white)
 [![vr scripts](https://badges.velociraptor.run/flat.svg)](https://velociraptor.run)
 ![Test](https://github.com/p1atdev/ndl/actions/workflows/test.yml/badge.svg)
 [![codecov](https://codecov.io/gh/p1atdev/ndl/branch/main/graph/badge.svg?token=SJ2W1IUKCR)](https://codecov.io/gh/p1atdev/ndl)
 
+Deno 用の国立国会図書館の検索 API クライアント
+
+API 仕様書: https://iss.ndl.go.jp/information/api/riyou/
+
 # Features
 
-- VSCode extension setup for Deno
-- [Velociraptor](https://velociraptor.run/)
-- [Dockerfile](https://hub.docker.com/r/denoland/deno)
+- OpenSearch エンドポイント対応
 
-# Usage
+## Usage
 
-## GitHub Template
+### フリーワード検索
 
-[Create a repo from this template](https://github.com/p1atdev/deno_template/generate)
+```ts
+import { OpenSearch } from "https://deno.land/x/ndl@v0.1.0/mod.ts";
 
-## Clone
+const client = OpenSearch();
 
-```bash
-git clone https://github.com/p1atdev/deno_template my_deno_project
+const result = await client.search("タコピーの原罪");
+
+console.log(result.count); // 3
+
+const book = result.items[0];
+
+console.log(book.title.value); // "タコピーの原罪"
+console.log(book.title.pronounciation); // "タコピー ノ ゲンザイ"
+
+console.log(book.volume); // "上"
+
+console.log(book.identifier.find((id) => id.type == "ISBN")?.id); // "9784088830490"
+
+console.log(book.price); // "630円"
 ```
 
-## Badges
+### パラメーター指定検索
 
-- Test workflow
+一部のパラメーターは配列にして AND 検索することができます。
 
-```md
-![Test](https://github.com/[your_name]/[your_repo_name]/actions/workflows/test.yml/badge.svg)
+```ts
+import { OpenSearch } from "https://deno.land/x/ndl@v0.1.0/mod.ts";
+
+const client = OpenSearch();
+
+const result = await client.search({
+  cnt: 5,
+  title: ["ダンジョン", "飯"],
+  creator: "九井諒子",
+});
+
+console.log(result.items.length); // 5
+
+const book = result.items[0];
+
+console.log(book.title.value); // "ダンジョン飯 = DELICIOUS IN DUNGEON"
+console.log(book.title.pronounciation); // "ダンジョンメシ"
+
+console.log(book.genre); // "漫画"
+
+console.log(book.volume); // "1"
+
+console.log(book.identifier.find((id) => id.type == "ISBN")?.id); // "9784047301535"
+
+console.log(book.price); // "620円"
 ```
+
+資料種を指定することもできます。
+
+```ts
+import { OpenSearch } from "https://deno.land/x/ndl@v0.1.0/mod.ts";
+
+const client = OpenSearch();
+
+const result = await client.search({
+  cnt: 3,
+  title: "キノの旅",
+  mediatype: "children", // 児童書
+});
+
+console.log(result.items.length); // 3
+
+const book = result.items[0];
+
+console.log(book.title.value); // "キノの旅"
+console.log(book.title.pronounciation); // "キノ ノ タビ"
+
+console.log(book.category); // "児童書"
+
+console.log(book.identifier.find((id) => id.type == "ISBN")?.id); // "4840215855"
+
+console.log(book.price); // "530円"
+```
+
+指定できるパラメーターの役割については、型定義や
+[仕様書](https://iss.ndl.go.jp/information/wp-content/uploads/2022/05/ndlsearch_api_20220520_jp.pdf)
+を参考にしてください。
+
+## TODO
+
+- プロバイダ方定義
+  ([参考](https://iss.ndl.go.jp/information/wp-content/uploads/2021/12/ndlsearch_api_ap1_20211220_jp.pdf))
+- 未対応の返り値パラメーターの対応
+  ([参考](https://www.ndl.go.jp/jp/dlib/standards/meta/2020/12/terms-list.pdf))
+- 国会議事録検索
+- メタデータ API

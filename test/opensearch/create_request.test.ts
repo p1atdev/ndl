@@ -27,6 +27,20 @@ Deno.test("create opensearch request: simple (isbn)", () => {
   );
 });
 
+Deno.test("create opensearch request: complex (cnt, title)", () => {
+  const req = createOpenSearchRequest({
+    cnt: 5,
+    title: ["ダンジョン", "飯"],
+  });
+
+  console.log(req.url);
+
+  assertEquals(
+    req.url,
+    "https://iss.ndl.go.jp/api/opensearch?cnt=5&title=%E3%83%80%E3%83%B3%E3%82%B8%E3%83%A7%E3%83%B3+%E9%A3%AF",
+  );
+});
+
 Deno.test("create opensearch request: complex (cnt, dpid, dpgroupid, title)", () => {
   const req = createOpenSearchRequest({
     cnt: 5,

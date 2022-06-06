@@ -26,7 +26,7 @@ export interface OpenSearchResult {
   language: string;
 
   /**
-   * 検索結果の数
+   * 検索条件に当てはまる書籍の個数(検索結果の個数ではない)
    */
   count: number;
 
