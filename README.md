@@ -107,7 +107,7 @@ console.log(book.price); // "530円"
 
 ## TODO
 
-- プロバイダ方定義
+- プロバイダ型定義
   ([参考](https://iss.ndl.go.jp/information/wp-content/uploads/2021/12/ndlsearch_api_ap1_20211220_jp.pdf))
 - 未対応の返り値パラメーターの対応
   ([参考](https://www.ndl.go.jp/jp/dlib/standards/meta/2020/12/terms-list.pdf))
