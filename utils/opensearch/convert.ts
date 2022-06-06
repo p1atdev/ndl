@@ -14,9 +14,11 @@ import { parseCrazyDate, zenkakuToHankaku } from "../mod.ts";
 export const getOpenSearchResult = (
   res: OpenSearchRSSResponse,
 ): OpenSearchResult => {
-  const resultItems = Array.isArray(res.rss.channel.item)
-    ? res.rss.channel.item.map((i) => resItemToResultItem(i))
-    : [resItemToResultItem(res.rss.channel.item)];
+  const resultItems = res.rss.channel.item
+    ? Array.isArray(res.rss.channel.item)
+      ? res.rss.channel.item.map((i) => resItemToResultItem(i))
+      : [resItemToResultItem(res.rss.channel.item)]
+    : [];
 
   const result: OpenSearchResult = {
     title: res.rss.channel.title,
@@ -150,7 +152,7 @@ const resItemToResultItem = (
     price: resItem["dcndl:price"]
       ? zenkakuToHankaku(String(resItem["dcndl:price"]))
       : undefined,
-    volume: resItem["dcndl:volume"],
+    volume: String(resItem["dcndl:volume"]),
     extent: resItem["dc:extent"]
       ? Array.isArray(resItem["dc:extent"])
         ? resItem["dc:extent"].map((extent) => {
