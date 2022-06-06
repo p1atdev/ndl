@@ -1,9 +1,11 @@
 # NDL API Client for Deno
 
-![Deno JS](https://img.shields.io/badge/deno%20js-000000?style=for-the-badge&logo=deno&logoColor=white)
+[![deno module](https://shield.deno.dev/x/ndl)](https://deno.land/x/ndl)
+![deno compatibility](https://shield.deno.dev/deno/^1.22)
 [![vr scripts](https://badges.velociraptor.run/flat.svg)](https://velociraptor.run)
 ![Test](https://github.com/p1atdev/ndl/actions/workflows/test.yml/badge.svg)
 [![codecov](https://codecov.io/gh/p1atdev/ndl/branch/main/graph/badge.svg?token=SJ2W1IUKCR)](https://codecov.io/gh/p1atdev/ndl)
+[![nest.land](https://nest.land/badge.svg)](https://nest.land/package/ndl)
 
 Deno 用の国立国会図書館の検索 API クライアント
 
@@ -15,10 +17,17 @@ API 仕様書: https://iss.ndl.go.jp/information/api/riyou/
 
 ## Usage
 
+### Import
+
+(deno.land の方での登録をミスったのでしばらくは nest.land の方を使ってください。7 月くらいに対応します。)
+
+- deno.land: https://deno.land/x/ndl@v0.1.0/mod.ts
+- nest.land: https://x.nest.land/ndl@v0.1.0/mod.ts
+
 ### フリーワード検索
 
 ```ts
-import { OpenSearch } from "https://deno.land/x/ndl@v0.1.0/mod.ts";
+import { OpenSearch } from "https://x.nest.land/ndl@v0.1.0/mod.ts";
 
 const client = OpenSearch();
 
@@ -43,8 +52,6 @@ console.log(book.price); // "630円"
 一部のパラメーターは配列にして AND 検索することができます。
 
 ```ts
-import { OpenSearch } from "https://deno.land/x/ndl@v0.1.0/mod.ts";
-
 const client = OpenSearch();
 
 const result = await client.search({
@@ -72,8 +79,6 @@ console.log(book.price); // "620円"
 資料種を指定することもできます。
 
 ```ts
-import { OpenSearch } from "https://deno.land/x/ndl@v0.1.0/mod.ts";
-
 const client = OpenSearch();
 
 const result = await client.search({
