@@ -44,12 +44,13 @@ export const createOpenSearchRequest = (
           }
           case "mediatype": {
             if (Array.isArray(value)) {
-              params.append(
-                key,
-                value.map((v: MediaTypeText) => {
-                  return v in mediaTypeText ? mediaTypeText[v] : v;
-                }).join(","),
-              );
+              value.forEach((v) => {
+                params.append(
+                  key,
+                  v in mediaTypeText ? mediaTypeText[v as MediaTypeText] : v,
+                );
+                console.log(params);
+              });
             } else {
               params.append(
                 key,

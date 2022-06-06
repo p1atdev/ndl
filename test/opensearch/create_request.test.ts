@@ -1,7 +1,7 @@
 import { createOpenSearchRequest, formatDate } from "../../utils/mod.ts";
 import { assertEquals } from "../../deps.ts";
 
-Deno.test("opensearch request: simple (title)", () => {
+Deno.test("create opensearch request: simple (title)", () => {
   const req = createOpenSearchRequest({
     title: "吾輩は猫である",
   });
@@ -14,7 +14,7 @@ Deno.test("opensearch request: simple (title)", () => {
   );
 });
 
-Deno.test("opensearch request: simple (isbn)", () => {
+Deno.test("create opensearch request: simple (isbn)", () => {
   const req = createOpenSearchRequest({
     isbn: "4758069700",
   });
@@ -27,7 +27,7 @@ Deno.test("opensearch request: simple (isbn)", () => {
   );
 });
 
-Deno.test("opensearch request: complex (cnt, dpid, dpgroupid, title)", () => {
+Deno.test("create opensearch request: complex (cnt, dpid, dpgroupid, title)", () => {
   const req = createOpenSearchRequest({
     cnt: 5,
     dpid: "aozora",
@@ -43,7 +43,7 @@ Deno.test("opensearch request: complex (cnt, dpid, dpgroupid, title)", () => {
   );
 });
 
-Deno.test("opensearch request: complex (cnt, title, creator, mediatype)", () => {
+Deno.test("create opensearch request: complex (cnt, title, creator, mediatype)", () => {
   const req = createOpenSearchRequest({
     cnt: 10,
     title: ["羅生門"],
@@ -59,7 +59,7 @@ Deno.test("opensearch request: complex (cnt, title, creator, mediatype)", () => 
   );
 });
 
-Deno.test("opensearch request: complex (cnt, from, until, mediatype)", () => {
+Deno.test("create opensearch request: complex (cnt, from, until, mediatype)", () => {
   const req = createOpenSearchRequest({
     cnt: 100,
     from: formatDate(new Date("2021-01-01"), "YYYY-MM-dd"),
@@ -75,7 +75,37 @@ Deno.test("opensearch request: complex (cnt, from, until, mediatype)", () => {
   );
 });
 
-Deno.test("opensearch request: complex (cnt, publisher)", () => {
+Deno.test("create opensearch request: complex (cnt, from, until)", () => {
+  const req = createOpenSearchRequest({
+    cnt: 10,
+    from: new Date("Fri, 02 Jan 2015 03:36:01 +0000"),
+    until: new Date("Sun, 17 May 2015 03:36:01 +0000"),
+  });
+
+  console.log(req.url);
+
+  assertEquals(
+    req.url,
+    "https://iss.ndl.go.jp/api/opensearch?cnt=10&from=2015-01-02&until=2015-05-17",
+  );
+});
+
+Deno.test("create opensearch request: complex (cnt, mediatype)", () => {
+  const req = createOpenSearchRequest({
+    cnt: 5,
+    title: "運輸",
+    mediatype: ["reference", "legislation"],
+  });
+
+  console.log(req.url);
+
+  assertEquals(
+    req.url,
+    "https://iss.ndl.go.jp/api/opensearch?cnt=5&title=%E9%81%8B%E8%BC%B8&mediatype=5&mediatype=9",
+  );
+});
+
+Deno.test("create opensearch request: complex (cnt, publisher)", () => {
   const req = createOpenSearchRequest({
     cnt: 5,
     publisher: "筑摩書房",
@@ -89,7 +119,7 @@ Deno.test("opensearch request: complex (cnt, publisher)", () => {
   );
 });
 
-Deno.test("opensearch request: complex (cnt, title, publisher)", () => {
+Deno.test("create opensearch request: complex (cnt, title, publisher)", () => {
   const req = createOpenSearchRequest({
     cnt: 7,
     title: "新約聖書",
@@ -104,7 +134,7 @@ Deno.test("opensearch request: complex (cnt, title, publisher)", () => {
   );
 });
 
-Deno.test("opensearch request: complex (cnt, idx, title)", () => {
+Deno.test("create opensearch request: complex (cnt, idx, title)", () => {
   const req = createOpenSearchRequest({
     cnt: 66,
     idx: 6,

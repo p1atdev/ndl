@@ -9,7 +9,7 @@ import {
   assertNotEquals,
 } from "../../deps.ts";
 
-Deno.test("opensearch request: simple (title)", async () => {
+Deno.test("send opensearch request: simple (title)", async () => {
   const req = createOpenSearchRequest({
     title: "吾輩は猫である",
   });
@@ -26,7 +26,7 @@ Deno.test("opensearch request: simple (title)", async () => {
   );
 });
 
-Deno.test("opensearch request: simple (isbn)", async () => {
+Deno.test("send opensearch request: simple (isbn)", async () => {
   const req = createOpenSearchRequest({
     isbn: "4758069700",
   });
@@ -43,7 +43,7 @@ Deno.test("opensearch request: simple (isbn)", async () => {
   );
 });
 
-Deno.test("opensearch request: complex (cnt, dpid, dpgroupid, title)", async () => {
+Deno.test("send opensearch request: complex (cnt, dpid, dpgroupid, title)", async () => {
   const req = createOpenSearchRequest({
     cnt: 5,
     dpid: "aozora",
@@ -63,7 +63,7 @@ Deno.test("opensearch request: complex (cnt, dpid, dpgroupid, title)", async () 
   );
 });
 
-Deno.test("opensearch request: complex (cnt, title, creator, mediatype)", async () => {
+Deno.test("send opensearch request: complex (cnt, title, creator, mediatype)", async () => {
   const req = createOpenSearchRequest({
     cnt: 10,
     title: ["羅生門"],
@@ -80,7 +80,7 @@ Deno.test("opensearch request: complex (cnt, title, creator, mediatype)", async 
   assertArrayIncludes(res.rss.channel.item.map((item) => item.title), ["羅生門"]);
 });
 
-Deno.test("opensearch request: complex (cnt, from, until, mediatype)", async () => {
+Deno.test("send opensearch request: complex (cnt, from, until, mediatype)", async () => {
   const req = createOpenSearchRequest({
     cnt: 10,
     title: "少年ジャンプ",
@@ -102,7 +102,7 @@ Deno.test("opensearch request: complex (cnt, from, until, mediatype)", async () 
   );
 });
 
-Deno.test("opensearch request: complex (cnt, publisher)", async () => {
+Deno.test("send opensearch request: complex (cnt, publisher)", async () => {
   const req = createOpenSearchRequest({
     cnt: 5,
     publisher: "筑摩書房",
@@ -121,7 +121,7 @@ Deno.test("opensearch request: complex (cnt, publisher)", async () => {
   );
 });
 
-Deno.test("opensearch request: complex (cnt, title, publisher)", async () => {
+Deno.test("send opensearch request: complex (cnt, title, publisher)", async () => {
   const req = createOpenSearchRequest({
     cnt: 100,
     title: ["ヨハネ", "福音書"],
@@ -141,7 +141,7 @@ Deno.test("opensearch request: complex (cnt, title, publisher)", async () => {
   );
 });
 
-Deno.test("opensearch request: complex (cnt, idx, title)", async () => {
+Deno.test("send opensearch request: complex (cnt, idx, title)", async () => {
   const req = createOpenSearchRequest({
     cnt: 13,
     idx: 6,
