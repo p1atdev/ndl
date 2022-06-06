@@ -1,3 +1,33 @@
+// see: https://www.ndl.go.jp/jp/dlib/standards/meta/2020/12/terms-list.pdf
+
+/**
+ * NDLC分類コード
+ */
+export type NDLC =
+  | "BSH"
+  | "GHQSCAP"
+  | "LibType"
+  | "NDLC"
+  | "MCJ"
+  | "NDC"
+  | "NDC8"
+  | "NDC9"
+  | "NDC10"
+  | "NDLC10"
+  | "NDLSH"
+  | "NDLGFT"
+  | "NDLNA"
+  | "NDLType"
+  | "NIISubject"
+  | "NIIType"
+  | "USCAR"
+  | "UNKWON";
+
+/**
+ * 識別コード
+ */
+export type Identifier = "ISBN" | "NDLBibID" | "JPNO" | "RIS502" | "UNKWON";
+
 export interface OpenSearchRSSResponse {
   xml: XML;
   rss: OpenSearchRSS;
@@ -38,37 +68,48 @@ export interface OpenSearchRSSChannelItem {
   "dc:title": string;
   "dcndl:titleTranscription": string;
   "dc:publisher"?: string;
-  "dc:date"?: number;
-  "dcterms:issued": OpenSearchRSSChannelItemDctermsIssued;
-  "dcndl:price"?: string;
+  "dc:date"?: string;
+  "dcterms:issued"?: OpenSearchRSSChannelXSIItem;
+  "dcterms:modified"?: OpenSearchRSSChannelXSIItem;
+  "dcterms:copyrighted"?: OpenSearchRSSChannelXSIItem;
+  "dcterms:submitted"?: OpenSearchRSSChannelXSIItem;
+  "dcterms:captured"?: OpenSearchRSSChannelXSIItem;
+  "dcterms:created"?: OpenSearchRSSChannelXSIItem;
+  "dcndl:price"?: string | number;
   "dcndl:genre"?: string;
-  "dc:extent"?: string;
-  "dc:identifier":
-    | OpenSearchRSSChannelItemDcIdentifierElement[]
-    | OpenSearchRSSChannelItemDctermsIssued;
-  "dc:subject": OpenSearchRSSChannelItemDcSubject[];
-  "dc:description": string[];
-  "rdfs:seeAlso": OpenSearchRSSChannelItemRdfsSeeAlso;
+  "dcndl:volume"?: string;
+  "dcndl:originalLanguage"?: string;
+  "dc:extent"?: string | string[];
+  "dc:identifier"?:
+    | OpenSearchRSSChannelIdentifier[]
+    | OpenSearchRSSChannelIdentifier;
+  "dc:subject"?:
+    | OpenSearchRSSChannelSubject
+    | string
+    | (OpenSearchRSSChannelSubject | string)[];
+  "dc:description": string | string[];
+  "rdfs:seeAlso"?: OpenSearchRSSChannelRDFItem | OpenSearchRSSChannelRDFItem[];
   "dc:creator"?: string;
-  "dcterms:isPartOf"?: OpenSearchRSSChannelItemRdfsSeeAlso[];
+  "dcterms:isPartOf"?: OpenSearchRSSChannelRDFItem[];
+  "foaf:thumbnail"?: string;
 }
 
-export interface OpenSearchRSSChannelItemDcIdentifierElement {
+export interface OpenSearchRSSChannelIdentifier {
+  "@xsi:type": Identifier;
+  "#text": number | string;
+}
+
+export interface OpenSearchRSSChannelSubject {
+  "@xsi:type": NDLC;
+  "#text": string;
+}
+
+export interface OpenSearchRSSChannelXSIItem {
   "@xsi:type": string;
   "#text": number | string;
 }
 
-export interface OpenSearchRSSChannelItemDctermsIssued {
-  "@xsi:type": string;
-  "#text": number;
-}
-
-export interface OpenSearchRSSChannelItemDcSubject {
-  "@xsi:type": string;
-  "#text": string;
-}
-
-export interface OpenSearchRSSChannelItemRdfsSeeAlso {
+export interface OpenSearchRSSChannelRDFItem {
   "@rdf:resource": string;
   "#text": null;
 }

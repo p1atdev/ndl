@@ -1,3 +1,8 @@
+// see: https://www.ndl.go.jp/jp/dlib/standards/meta/2020/12/terms-list.pdf
+
+import { Identifier, NDLC } from "./mod.ts";
+import { DateTime } from "../../deps.ts";
+
 export interface OpenSearchResult {
   /**
    * 検索結果のタイトル
@@ -16,7 +21,7 @@ export interface OpenSearchResult {
   description: string;
 
   /**
-   * 言語
+   * 情報資源の記述言語
    */
   language: string;
 
@@ -38,7 +43,7 @@ export interface OpenSearchResult {
   /**
    * 検索結果
    */
-  results: OpenSearchResultItem[];
+  items: OpenSearchResultItem[];
 }
 
 export interface OpenSearchResultItem {
@@ -50,13 +55,17 @@ export interface OpenSearchResultItem {
   /**
    * 書籍の詳細リンク link, rdfs:seeAlso
    */
-  link: string[];
-  // TODO: このlinkはメインのリンクとseeAlsoのリンクがあるので区別がつくようにinterfaceを作ってあげる
+  links: OpenSearchResultLink[];
+
+  /**
+   * 原文の言語
+   */
+  originalLanguage?: string;
 
   /**
    * 書籍情報の説明文 "dc:description": string[];
    */
-  description: string;
+  descriptions: string[];
 
   /**
    * 著者
@@ -66,7 +75,12 @@ export interface OpenSearchResultItem {
   /**
    * 出版社
    */
-  publisher: string;
+  publisher?: string;
+
+  /**
+   * 当該情報資源の作成者
+   */
+  informationCreator?: string;
 
   /**
    * カテゴリ
@@ -74,36 +88,19 @@ export interface OpenSearchResultItem {
   category: string;
 
   /**
-   * ジャンル (カテゴリとの違いは？)
+   * サムネイル画像
+   */
+  thumbnail?: string;
+
+  /**
+   * ジャンル・形式用語
    */
   genre?: string;
 
   /**
-   * 分類 (NDLCなどの分類)
+   * 日付情報
    */
-  subjects: string[];
-
-  //   /**
-  //    * 不明。linkと同じでおそらく不要
-  //    */
-  //   guid: string;
-
-  // /**
-  //  * 何かの出版日 (pubDate)
-  //  */
-  // publicationDate: Date;
-
-  // TODO: 発行日時について、いろいろ種類があるのでまとめてinterface書く
-
-  /**
-   * 出版日 "dc:date"?: number;
-   */
-  publicationDate: Date;
-
-  /**
-   * W3CDTFでの出版年 dcterms:issued
-   */
-  W3CDTF: number;
+  date: OpenSearchResultDate;
 
   /**
    * 値段
@@ -112,14 +109,24 @@ export interface OpenSearchResultItem {
   price?: string;
 
   /**
-   * ページ数 dc:extent
+   * 何巻目か volume
    */
-  volume?: number;
+  volume?: string;
 
   /**
-   * サイズ(縦) dc:extent
+   * サイズ情報など
    */
-  size?: number;
+  extent?: string[];
+
+  // /**
+  //  * ページ数 dc:extent
+  //  */
+  // pages?: number;
+
+  // /**
+  //  * サイズ(縦) dc:extent
+  //  */
+  // size?: string;
 
   /**
    * 識別コード dc:identifier
@@ -131,17 +138,20 @@ export interface OpenSearchResultItem {
    */
   subject: OpenSearchResultSubject[];
 
-  /**
-   * 不明
-   */
-  //   "dcterms:isPartOf"?: OpenSearchRSSChannelItemRdfsSeeAlso[];
+  // /**
+  //  * 参照先の情報資源の一部分である
+  //  */
+  // isPartOf?: string[];
 }
 
+/**
+ * 実際の表記と読み方
+ */
 export interface OpenSearchResultTranscript {
   /**
    * 実際の表記
    */
-  original: string;
+  value: string;
 
   /**
    * 読み方(カタカナ)
@@ -149,17 +159,38 @@ export interface OpenSearchResultTranscript {
   pronounciation: string;
 }
 
+/**
+ * リンク
+ */
+export interface OpenSearchResultLink {
+  /**
+   * リンクの種類
+   */
+  type: "main" | "seeAlso";
+
+  /**
+   * URL
+   */
+  url: string;
+}
+
+/**
+ * 識別子
+ */
 export interface OpenSearchResultIdentifier {
   /**
    * 識別子の種類(ISBNなど)
    */
-  type: string;
+  type: Identifier;
   /**
    * 識別コード
    */
   id: string;
 }
 
+/**
+ * 分類
+ */
 export interface OpenSearchResultSubject {
   /**
    * 分類コード
@@ -173,6 +204,41 @@ export interface OpenSearchResultSubject {
 }
 
 /**
- * NDLC分類コード
+ * 日付、出版日、公開日、発行日
  */
-export type NDLC = "NDLC" | "NDLC10" | "NDC9" | "NDLSH";
+export interface OpenSearchResultDate {
+  /**
+   * 何かの日付(何！？)
+   */
+  something?: DateTime;
+
+  /**
+   * 出版年月日
+   */
+  issued?: DateTime;
+
+  /**
+   * 更新日
+   */
+  modified?: DateTime;
+
+  /**
+   * 著作権が発効した日
+   */
+  copyrighted?: DateTime;
+
+  /**
+   * 論文や記事などの提出日
+   */
+  submitted?: DateTime;
+
+  /**
+   * 当該情報資源を採取・保存した日
+   */
+  captured?: DateTime;
+
+  /**
+   * 作成日(何の！？)
+   */
+  created?: DateTime;
+}
