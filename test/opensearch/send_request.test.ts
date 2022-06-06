@@ -143,7 +143,7 @@ Deno.test("opensearch request: complex (cnt, title, publisher)", async () => {
 
 Deno.test("opensearch request: complex (cnt, idx, title)", async () => {
   const req = createOpenSearchRequest({
-    cnt: 66,
+    cnt: 13,
     idx: 6,
     title: "新約聖書",
   });
@@ -156,7 +156,7 @@ Deno.test("opensearch request: complex (cnt, idx, title)", async () => {
 
   assertEquals(
     res.rss.channel.item.length,
-    66,
-    "item length is not 66",
+    13,
+    "item length is not 13",
   );
 });
