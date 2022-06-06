@@ -8,7 +8,9 @@ import { zenkakuToHankaku } from "./mod.ts";
  * @returns string
  */
 export const formatDate = (date: Date | DateTime, format: string): string => {
-  const dt = datetime(date);
+  const dt = datetime(date, {
+    timezone: "Asia/Tokyo",
+  });
 
   return dt.format(format);
 };
