@@ -78,15 +78,15 @@ Deno.test("opensearch request: complex (cnt, from, until, mediatype)", () => {
 Deno.test("opensearch request: complex (cnt, from, until)", () => {
   const req = createOpenSearchRequest({
     cnt: 10,
-    from: new Date("2015/01/20"),
-    until: new Date("2016/04/03"),
+    from: new Date("Fri, 02 Jan 2015 03:36:01 +0000"),
+    until: new Date("Sun, 17 May 2015 03:36:01 +0000"),
   });
 
   console.log(req.url);
 
   assertEquals(
     req.url,
-    "https://iss.ndl.go.jp/api/opensearch?cnt=10&from=2015-01-19&until=2016-04-02",
+    "https://iss.ndl.go.jp/api/opensearch?cnt=10&from=2015-01-02&until=2015-05-17",
   );
 });
 
