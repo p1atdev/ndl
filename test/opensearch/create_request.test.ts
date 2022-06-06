@@ -75,6 +75,36 @@ Deno.test("opensearch request: complex (cnt, from, until, mediatype)", () => {
   );
 });
 
+Deno.test("opensearch request: complex (cnt, from, until)", () => {
+  const req = createOpenSearchRequest({
+    cnt: 10,
+    from: new Date("2015/01/20"),
+    until: new Date("2016/04/03"),
+  });
+
+  console.log(req.url);
+
+  assertEquals(
+    req.url,
+    "https://iss.ndl.go.jp/api/opensearch?cnt=10&from=2015-01-19&until=2016-04-02",
+  );
+});
+
+Deno.test("opensearch request: complex (cnt, mediatype)", () => {
+  const req = createOpenSearchRequest({
+    cnt: 5,
+    title: "運輸",
+    mediatype: ["reference", "legislation"],
+  });
+
+  console.log(req.url);
+
+  assertEquals(
+    req.url,
+    "https://iss.ndl.go.jp/api/opensearch?cnt=5&title=%E9%81%8B%E8%BC%B8&mediatype=5&mediatype=9",
+  );
+});
+
 Deno.test("opensearch request: complex (cnt, publisher)", () => {
   const req = createOpenSearchRequest({
     cnt: 5,
