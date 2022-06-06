@@ -6,6 +6,7 @@ import {
   assert,
   assertArrayIncludes,
   assertEquals,
+  assertExists,
   assertNotEquals,
 } from "../../deps.ts";
 
@@ -36,6 +37,8 @@ Deno.test("send opensearch request: simple (isbn)", async () => {
   //   console.log(res.rss.channel.item);
 
   assert(!Array.isArray(res.rss.channel.item));
+
+  assertExists(res.rss.channel.item);
 
   assertEquals(
     res.rss.channel.item.title,
@@ -159,4 +162,19 @@ Deno.test("send opensearch request: complex (cnt, idx, title)", async () => {
     13,
     "item length is not 13",
   );
+});
+
+Deno.test("send opensearch request: no result (cnt, title, mediatype)", async () => {
+  const req = createOpenSearchRequest({
+    cnt: 13,
+    title: "にゃーん",
+    mediatype: "newspaper",
+  });
+
+  const res = await sendOpenSearchRequest(req);
+
+  //   console.log(res.rss.channel.item);
+
+  assertEquals(res.rss.channel["openSearch:totalResults"], 0);
+  assertEquals(res.rss.channel.item, undefined);
 });
