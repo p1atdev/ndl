@@ -4,7 +4,7 @@
   "entry": "./mod.ts",
   "description": "National Diet Library, Japan API Client for Deno",
   "homepage": "https://github.com/p1atdev/ndl",
-  "version": "v0.1.1",
+  "version": "v0.1.2",
   "releaseType": null,
   "unstable": true,
   "unlisted": false,
@@ -15,7 +15,7 @@
     ".env"
   ],
   "checkFormat": true,
-  "checkTests": true,
+  "checkTests": false,
   "checkInstallation": false,
   "check": true
 }
