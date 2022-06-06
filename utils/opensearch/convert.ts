@@ -68,7 +68,7 @@ const resItemToResultItem = (
       ]
     : [];
 
-  console.log(resItem["dc:subject"]);
+  // console.log(resItem["dc:subject"]);
 
   const subject: OpenSearchResultSubject[] = resItem["dc:subject"]
     ? Array.isArray(resItem["dc:subject"])
