@@ -19,15 +19,13 @@ API 仕様書: https://iss.ndl.go.jp/information/api/riyou/
 
 ### Import
 
-(deno.land の方での登録をミスったのでしばらくは nest.land の方を使ってください。7 月くらいに対応します。)
-
-- deno.land: https://deno.land/x/ndl@v0.1.3/mod.ts
-- nest.land: https://x.nest.land/ndl@v0.1.3/mod.ts
+- deno.land: https://deno.land/x/ndl@v0.1.4/mod.ts
+- nest.land: https://x.nest.land/ndl@v0.1.4/mod.ts
 
 ### フリーワード検索
 
 ```ts
-import { OpenSearch } from "https://x.nest.land/ndl@v0.1.3/mod.ts";
+import { OpenSearch } from "https://deno.land/ndl@v0.1.4/mod.ts";
 
 const client = OpenSearch();
 

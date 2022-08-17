@@ -1,4 +1,3 @@
-import {} from "../../types/mod.ts";
 import {
   createOpenSearchRequest,
   getOpenSearchResult,

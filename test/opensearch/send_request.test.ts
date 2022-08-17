@@ -36,14 +36,19 @@ Deno.test("send opensearch request: simple (isbn)", async () => {
 
   //   console.log(res.rss.channel.item);
 
-  assert(!Array.isArray(res.rss.channel.item));
-
   assertExists(res.rss.channel.item);
 
-  assertEquals(
-    res.rss.channel.item.title,
-    "アークナイツoperators! = アークナイツオペレーターズ!",
-  );
+  if (Array.isArray(res.rss.channel.item)) {
+    assertEquals(
+      res.rss.channel.item[0].title,
+      "アークナイツoperators! = アークナイツオペレーターズ!",
+    );
+  } else {
+    assertEquals(
+      res.rss.channel.item.title,
+      "アークナイツoperators! = アークナイツオペレーターズ!",
+    );
+  }
 });
 
 Deno.test("send opensearch request: complex (cnt, dpid, dpgroupid, title)", async () => {

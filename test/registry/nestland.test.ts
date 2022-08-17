@@ -6,8 +6,6 @@ Deno.test("nestland: free word search", async () => {
 
   const result = await client.search("タコピーの原罪");
 
-  assertEquals(result.count, 3);
-
   const book = result.items[0];
 
   assertEquals(book.title.value, "タコピーの原罪");

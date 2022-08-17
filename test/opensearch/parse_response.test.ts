@@ -1,6 +1,5 @@
-import { assertEquals } from "../../deps.ts";
-import { xml } from "../../deps.ts";
 import { OpenSearchRSSResponse } from "../../types/mod.ts";
+import { assertEquals, xml } from "../../deps.ts";
 
 Deno.test("xml parsing", async () => {
   const url =
